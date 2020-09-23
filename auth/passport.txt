@@ -1,0 +1,7 @@
+We’ll need bcrypt for hashing user passwords, jsonwebtoken for signing tokens, passport-local for implementing local strategy, and passport-jwt for getting and verifying JWTs.
+
+Here’s how our application is going to work :
+
+The user signs up and then logs in, after the user logs in, a JSON web token would be given to the user.
+The user is expected to store this token locally.
+This token is to be sent by the user when trying to access certain secure routes, once the token has been verified, the user is then allowed to access the route.

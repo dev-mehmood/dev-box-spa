@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "zone.js": "https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.10.3/zone.min.js",
+    "react": "https://cdn.jsdelivr.net/npm/react@16.13.1/umd/react.production.min.js",
+    "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.production.min.js",
+    "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.5.3/lib/system/single-spa.min.js",
+    "rxjs": "https://cdn.jsdelivr.net/npm/@esm-bundle/rxjs@6.5.5/system/rxjs.min.js",
+    "rxjs/operators": "https://cdn.jsdelivr.net/npm/@esm-bundle/rxjs@6.5.5/system/rxjs-operators.min.js",
+    "@dev-box/styleguide": "https://cdn.jsdelivr.net/gh/dev-mehmood/dev-box-styleguide/dist/8f14e206c9b9c812a0bd-styleguide.js",
+    "@dev-box/navbar": "https://cdn.jsdelivr.net/gh/dev-mehmood/dev-box-navbar/dist/05adc23ed1762ea42d56-navbar.js",
+    "@dev-box/root-config": "https://cdn.jsdelivr.net/gh/dev-mehmood/dev-box-base/dist/2b0c4ddebeeca458c463/root-config.js",
+    "@dev-box/root-config/": "https://cdn.jsdelivr.net/gh/dev-mehmood/dev-box-base/dist/2b0c4ddebeeca458c463/"
+  },
+  "mode": "stage"
+}

@@ -1,0 +1,44 @@
+{
+  "name": "dev-box-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-mehmood/dev-box-rest-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-mehmood/dev-box-rest-api/issues"
+  },
+  "homepage": "https://github.com/dev-mehmood/dev-box-rest-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "express-jwt-blacklist": "^1.1.0",
+    "firebase-admin": "^9.1.1",
+    "firebase-key": "^2.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "memcached": "^2.2.2",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
+    "mongoose": "^5.10.6",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.5.0",
+    "swagger-ui-express": "^4.1.2",
+    "sync-request": "^6.1.0",
+    "uuid": "^3.3.3"
+  }
+}

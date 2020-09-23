@@ -1,0 +1,41 @@
+Monogodb connection and installation"
+https://www.howtoforge.com/how-to-install-and-use-mongodb-on-ubuntu-2004/
+https://zocada.com/setting-mongodb-users-beginners-guide/
+
+https://www.digitalocean.com/community/tutorials/api-authentication-with-json-web-tokensjwt-and-passport
+
+https://medium.com/@helabenkhalfallah/nodejs-rest-api-with-express-passport-jwt-and-mongodb-98e5f2fee496
+Understanding JSON Web Tokens
+JSON Web Token (JWT) is an open standard that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
+
+JWTs are secure because they are digitally signed and if the information
+contained within is tampered in any way, it renders that token invalid. We’ll look at how this is made possible later on. J
+
+A JWT is composed of three separate definitions: header, payload, and signature.
+
+Header : the header defines the type of algorithm used to verify the token and the type of token:
+
+
+{
+   "type" : "JWT",
+   "alg" : "HS256"
+ }
+
+ *Payload *: contains the claims. Claims are information about the user together with other additional metadata, such as the following:
+
+ {
+   id : 1
+   name : 'devgson'
+   iat : 1421211952
+ }
+
+ Signature : The signature encodes the information in the header and payload in base64
+format together with a secret key. All this information is then signed by the algorithm specified in the header. In our example, we’re using HMACSHA256. The signature verifies that the message being sent wasn’t tampered along the way.
+
+HMACSHA256(
+   base64UrlEncode(header) + "." +
+   base64UrlEncode(payload),
+   secret
+ )
+
+ Note: JWT’s should not be used to transfer or store secure information, because anyone that manages to intercept the token can decode the header and payload within. All the signature does is verify that the token hasn’t been tampered in any way. It doesn’t stop the token from being tampered with.

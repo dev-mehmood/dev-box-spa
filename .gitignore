@@ -1,0 +1,13 @@
+node_modules
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+firebase.token.json
+.env
+web-server.back.js

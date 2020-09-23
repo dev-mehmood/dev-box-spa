@@ -1,0 +1,9 @@
+{
+    "name":"Advanced App",
+    
+    "env": {
+        "HEROKU_APP_NAME": {
+            "required": true
+        }
+    }
+}
