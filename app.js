@@ -25,8 +25,8 @@
     await seed();// seed import-map.json on restart
 
     const app = express();
-    // app.use(cors());
-    app.options('*', cors())
+    
+   
     app.use(function (req, res, next) {
       res.header("Access-Control-Allow-Origin", '*');
       res.header("Access-Control-Allow-Credentials", true);
@@ -34,6 +34,8 @@
       res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
       next();
     });
+    app.use(cors());
+    app.options('*', cors())
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'ejs');
@@ -45,7 +47,7 @@
 
     app.get('/', function (req, res) {
       //https://devcenter.heroku.com/articles/config-vars
-      let URL = 'https://dev-box-spa-staging.herokuapp.com/import-maps/import-map.json?timestamp=' + new Date().getTime();
+      let URL = '/import-maps/import-map.json?timestamp=' + new Date().getTime();
       const mode = process.env.MODE;
 
       switch (mode) {
@@ -57,11 +59,11 @@
           break
         case 'review':
           if (process.env.HEROKU_APP_NAME) {
-            URL = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/import-maps/import-map.json/?mode=stage&timestamp=` + new Date().getTime();
+            URL = `/import-maps/import-map.json?mode=stage&timestamp=` + new Date().getTime();
           }
           break;
         default:
-          URL = 'http://localhost:3000/import-maps/import-map.json/?&mode=prod&timestamp=' + new Date().getTime();
+          URL = '/import-maps/import-map.json?mode=prod&timestamp=' + new Date().getTime();
           break
       }
 
