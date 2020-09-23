@@ -10,22 +10,30 @@
     const path = require('path');
     const cors = require('cors');
     const favicon = require('serve-favicon');
- 
-   
+
+
     const cache = require('./services/cache');
-   
+
 
     const { connect } = require('./services/mongoose.connection');
 
     await connect(process.env.MONGO_db_URI);
     await connect(process.env.IMPORT_MAPS_DB_URI)
     console.log('test');
-    const {  seed } = require('./services/helper');
-    
+    const { seed } = require('./services/helper');
+
     await seed();// seed import-map.json on restart
-    
+
     const app = express();
     app.use(cors());
+
+    app.use(function (req, res, next) {
+      res.header("Access-Control-Allow-Origin", '*');
+      res.header("Access-Control-Allow-Credentials", true);
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+      res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+      next();
+    });
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'ejs');
