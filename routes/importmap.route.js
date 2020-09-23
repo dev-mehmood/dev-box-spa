@@ -10,6 +10,7 @@ const passport = require('passport');
 const { encodeKey, decodeKey, decodeImports, encodeImports } = require('../services/helper')
 const { model: ImportMapModel } = require('../model/importmap.model')
 const cache = require('../services/cache');
+const { response } = require('express');
 const router = express.Router();
 
 
@@ -25,8 +26,8 @@ function deleteTempFile(path) {
 router.get('/import-map.json', async (req, res, next) => {
     // const cache = require('../services/cache')
     let query = req.query || {};
-    if (!query.mode) query.mode = 'prod'
-
+    if (!query.mode || !cache.get([query.mode])) return res.status(401).json({success:false, message: 'Query param mode does not exists or mode value mismatches.'})
+    
     fs.writeFileSync('./import-map.json', JSON.stringify({ imports: cache.get([query.mode]).imports }), 'utf8')
     const readStream = fs.createReadStream('./import-map.json');
     readStream.on('open', function () {
@@ -40,7 +41,7 @@ router.get('/import-map.json', async (req, res, next) => {
     });
 });
 
-router.patch('/import-map.json', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+router.patch('/import-map.json', passport.authenticate('jwt', { session: false }), async (req, res) => {
     // const cache = require('../services/cache');
     let body = req.body || {};
     if (!body) return res.status(400).send({ success: false, message: 'No data found' });

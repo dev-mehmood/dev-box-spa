@@ -26,15 +26,16 @@
 
     const app = express();
     
-    // app.options('*', cors())
-    app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", '*');
-      res.header("Access-Control-Allow-Credentials", true);
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-      res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-      next();
-    });
-    // app.use(cors());
+    // 
+    // app.use(function (req, res, next) {
+    //   res.header("Access-Control-Allow-Origin", '*');
+    //   res.header("Access-Control-Allow-Credentials", true);
+    //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    //   res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    //   next();
+    // });
+    app.use(cors());
+    app.options('*', cors())
     
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
@@ -59,11 +60,11 @@
           break
         case 'review':
           if (process.env.HEROKU_APP_NAME) {
-            URL = `/import-maps/import-map.json?mode=stage&timestamp=` + new Date().getTime();
+            URL = URL + '&mode=review';
           }
           break;
         default:
-          URL = '/import-maps/import-map.json?mode=prod&timestamp=' + new Date().getTime();
+          URL = URL + '&mode=stage';
           break
       }
 

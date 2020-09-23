@@ -38,7 +38,7 @@ module.exports = {
   seed: async (mode = 'prod') => {
     try {
 
-      let data = await model.find({ mode }).exec();
+      let data = await model.find({}).exec();
       if (!data.length) {
         // create three seeds
         const promiseArray = [];
