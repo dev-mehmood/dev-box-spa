@@ -25,7 +25,7 @@
     await seed();// seed import-map.json on restart
 
     const app = express();
-    app.use(cors());
+    // app.use(cors());
 
     app.use(function (req, res, next) {
       res.header("Access-Control-Allow-Origin", '*');
@@ -45,7 +45,7 @@
 
     app.get('/', function (req, res) {
       //https://devcenter.heroku.com/articles/config-vars
-      let URL = 'https://dev-box-spa-staging.herokuapp.com/import-maps/import-map.json/?&timestamp=' + new Date().getTime();
+      let URL = 'https://dev-box-spa-staging.herokuapp.com/import-maps/import-map.json?timestamp=' + new Date().getTime();
       const mode = process.env.MODE;
 
       switch (mode) {

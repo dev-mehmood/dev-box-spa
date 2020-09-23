@@ -26,7 +26,7 @@ function connectionFectory(uri) {
         let name = uri.split('/').slice(-1).pop()
         if (module.exports[map.get(uri)]) return resolve(module.exports[map.get(uri)]);
 
-        let conn = mongoose.createConnection(uri/* , { useNewUrlParser: true } */)
+        let conn = mongoose.createConnection(uri, { useNewUrlParser: true })
 
         conn.on("open", function () {
 
