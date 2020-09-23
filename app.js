@@ -1,6 +1,8 @@
+// https://medium.com/@ivanpilot/deploying-your-app-on-heroku-with-staging-and-production-environments-17156870983e
 'use strict';
 (async () => {
   try {
+    require('dotenv').config();
     const express = require('express');
     // const mongoose = require('mongoose');
     const bodyParser = require('body-parser');
@@ -11,7 +13,7 @@
  
    
     const cache = require('./services/cache');
-    require('dotenv').config();
+   
 
     const { connect } = require('./services/mongoose.connection');
 
