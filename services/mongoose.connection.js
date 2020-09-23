@@ -6,10 +6,9 @@ require('dotenv').config();
 
 const map = new Map();
 
-// map.set(process.env.MONGO_db_URI,'devboxdb')
-// map.set(process.env.IMPORT_MAPS_DB_URI,'importmapdb');
-map.set(process.env.MONGO_db_URI ||'mongodb://dev-box-rest-db-user:D&llrest123@ds147096.mlab.com:47096/dev-box-rest-db','devboxdb')
-map.set(process.env.IMPORT_MAPS_DB_URI || 'mongodb://import_maps_admin:6z!F-3SeaVW24-V@ds015909.mlab.com:15909/import-maps','importmapdb');
+map.set(process.env.MONGO_db_URI,'devboxdb')
+map.set(process.env.IMPORT_MAPS_DB_URI,'importmapdb');
+
 module.exports = {
     connect: connectionFectory,
     devboxdb: null,
@@ -21,12 +20,13 @@ function getDb(uri) {
 }
 
 function connectionFectory(uri) {
-
+    
     return new Promise((resolve, reject) => {
+        
         let name = uri.split('/').slice(-1).pop()
         if (module.exports[map.get(uri)]) return resolve(module.exports[map.get(uri)]);
 
-        let conn = mongoose.createConnection(uri, { useNewUrlParser: true })
+        let conn = mongoose.createConnection(uri/* , { useNewUrlParser: true } */)
 
         conn.on("open", function () {
 
