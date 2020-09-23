@@ -17,8 +17,11 @@
 
     const { connect } = require('./services/mongoose.connection');
 
-    await connect(process.env.MONGO_db_URI, 'devBoxDB');
-    await connect(process.env.IMPORT_MAPS_DB_URI, 'importMapDB')
+    // await connect(process.env.MONGO_db_URI);
+    // await connect(process.env.IMPORT_MAPS_DB_URI)
+    await connect('mongodb://dev-box-rest-db-user:D&llrest123@ds147096.mlab.com:47096/dev-box-rest-db');
+    await connect('mongodb://import_maps_admin:6z!F-3SeaVW24-V@ds015909.mlab.com:15909/import-maps')
+
     console.log('test');
     const {  seed } = require('./services/helper');
     
