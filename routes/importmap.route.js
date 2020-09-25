@@ -6,7 +6,7 @@
 const express = require('express');
 const fs = require('fs')
 const passport = require('passport');
-
+const cors = require('cors')
 const { encodeKey, decodeKey, decodeImports, encodeImports } = require('../services/helper')
 const { model: ImportMapModel } = require('../model/importmap.model')
 const cache = require('../services/cache');
@@ -41,7 +41,7 @@ router.get('/import-map.json', async (req, res, next) => {
     });
 });
 
-router.patch('/import-map.json', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.patch('/import-map.json', cors(), passport.authenticate('jwt', { session: false }), async (req, res) => {
     // const cache = require('../services/cache');
     let body = req.body || {};
     if (!body) return res.status(400).send({ success: false, message: 'No data found' });

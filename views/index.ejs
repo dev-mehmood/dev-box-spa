@@ -23,12 +23,26 @@
   <% } %>
 
   <% if (isLocal || staging || review) { %>
+
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
   <% } %>
 
   <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/named-exports.min.js"></script>
+
+  <% if (isLocal || staging || review) { %>
+
+  <script>
+    // bust browser system.js cache for staging and local development
+    systemLocate = System.locate;
+    System.locate = function (load) {
+      return Promise.resolve(systemLocate.call(this, load)).then(function (address) {
+        return address + '?q=' + new Date(Date.now()).getTime();
+      });
+    }
+  </script>
+  <% } %>
 </head>
 
 <body>
@@ -39,7 +53,7 @@
   </script>
 
   <% if (isLocal || staging  || review ) { %>
-    <import-map-overrides-full></import-map-overrides-full>
+  <import-map-overrides-full></import-map-overrides-full>
   <% } %>
 
   <!-- <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full> -->

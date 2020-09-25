@@ -25,7 +25,7 @@
     await seed();// seed import-map.json on restart
 
     const app = express();
-    
+
     // 
     // app.use(function (req, res, next) {
     //   res.header("Access-Control-Allow-Origin", '*');
@@ -34,9 +34,8 @@
     //   res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
     //   next();
     // });
-    app.use(cors());
-    app.options('*', cors())
-    
+
+
     // view engine setup
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'ejs');
@@ -59,9 +58,8 @@
           URL = URL + '&mode=stage';
           break
         case 'review':
-          if (process.env.HEROKU_APP_NAME) {
-            URL = URL + '&mode=review';
-          }
+
+          URL = URL + '&mode=review';
           break;
         default:
           URL = URL + '&mode=stage';
@@ -69,7 +67,7 @@
       }
 
       return res.render('index', {
-        isLocal: process.env.IS_LOCAL === undefined ? false : true,
+        isLocal: process.env.MODE  === 'local' ? true : false,
         URL,
         staging: process.env.MODE === 'staging',
         review: process.env.MODE === 'review'
@@ -84,8 +82,13 @@
     const import_maps = require('./routes/importmap.route');
     const secureRoute = require('./routes/user.secure.route');
 
-    app.use('/auth', routes);
     app.use('/import-maps', import_maps);
+
+    app.use(cors());
+    app.options('*', cors())
+
+    app.use('/auth', routes);
+
 
     //We plugin our jwt strategy as a middleware so only verified users can access this route
     app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
