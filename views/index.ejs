@@ -35,12 +35,13 @@
 
   <script>
     // bust browser system.js cache for staging and local development
-    systemLocate = System.locate;
-    System.locate = function (load) {
-      return Promise.resolve(systemLocate.call(this, load)).then(function (address) {
-        return address + '?q=' + new Date(Date.now()).getTime();
-      });
-    }
+
+    const systemResolve = System.resolve;
+    System.resolve = async function (id, parent) {
+      const resolved = await systemResolve.call(this, id, parent);
+      debugger
+      return resolved + '?cache=' + new Date(Date.now()).getTime();
+    };
   </script>
   <% } %>
 </head>
