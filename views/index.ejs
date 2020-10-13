@@ -39,7 +39,7 @@
     const systemResolve = System.resolve;
     System.resolve = async function (id, parent) {
       const resolved = await systemResolve.call(this, id, parent);
-      debugger
+      
       return resolved + '?cache=' + new Date(Date.now()).getTime();
     };
   </script>

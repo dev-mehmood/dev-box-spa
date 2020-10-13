@@ -9,7 +9,7 @@ const passport = require('passport');
 const cors = require('cors')
 const { encodeKey, decodeKey, decodeImports, encodeImports } = require('../services/helper')
 const { model: ImportMapModel } = require('../model/importmap.model')
-const cache = require('../services/cache');
+
 const { response } = require('express');
 const router = express.Router();
 
@@ -25,6 +25,7 @@ function deleteTempFile(path) {
 
 router.get('/import-map.json', async (req, res, next) => {
     // const cache = require('../services/cache')
+    const cache = require('../services/cache');
     let query = req.query || {};
     if (!query.mode || !cache.get([query.mode])) return res.status(401).json({success:false, message: 'Query param mode does not exists or mode value mismatches.'})
     
@@ -43,6 +44,7 @@ router.get('/import-map.json', async (req, res, next) => {
 
 router.patch('/import-map.json', cors(), passport.authenticate('jwt', { session: false }), async (req, res) => {
     // const cache = require('../services/cache');
+    const cache = require('../services/cache');
     let body = req.body || {};
     if (!body) return res.status(400).send({ success: false, message: 'No data found' });
     if (!body.imports) return res.status(400).send({ success: false, message: 'data.imports is undefined' });
@@ -110,7 +112,7 @@ router.patch('/import-map.json', cors(), passport.authenticate('jwt', { session:
         // })
     }
     function save(body, data) {
-
+        const cache = require('../services/cache');
         const importMap = new ImportMapModel(data)
         importMap.save(function (err) {
             if (err) return handleError(err);
@@ -119,6 +121,7 @@ router.patch('/import-map.json', cors(), passport.authenticate('jwt', { session:
         });
     }
     function update(body, data) {
+        const cache = require('../services/cache');
         ImportMapModel.update({ mode: body.mode }, data, (err, raw) => {
             cache.set(data.mode, { mode: data.mode, imports: decodeImports(data) });
             res.status(200).json({ success: true })
